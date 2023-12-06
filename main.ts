@@ -14,6 +14,11 @@ scene.onOverlapTile(SpriteKind.Player, assets.tile`myTile9`, function (sprite, l
     game.gameOver(false)
     game.setGameOverEffect(false, effects.confetti)
 })
+scene.onOverlapTile(SpriteKind.Player, assets.tile`myTile17`, function (sprite, location) {
+    game.gameOver(true)
+    game.setGameOverEffect(true, effects.starField)
+    game.setGameOverMessage(true, "Show this to Josh or Theo to claim your prize!")
+})
 sprites.onOverlap(SpriteKind.Player, SpriteKind.coin, function (sprite, otherSprite) {
     sprites.destroy(otherSprite, effects.fountain, 500)
     info.changeScoreBy(1)
@@ -157,7 +162,7 @@ function levels () {
             `)
         tiles.setCurrentTilemap(tilemap`level2`)
         controller.moveSprite(Tuxy, 100, 0)
-        Tuxy.ay = 300
+        Tuxy.ay = 500
     } else {
         scene.setBackgroundImage(img`
             9999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999
@@ -281,7 +286,9 @@ function levels () {
             7777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777
             7777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777
             `)
-        tiles.setCurrentTilemap(tilemap`level5`)
+        tiles.setCurrentTilemap(tilemap`level0`)
+        controller.moveSprite(Tuxy, 100, 100)
+        Tuxy.ay = 0
     }
     for (let value of sprites.allOfKind(SpriteKind.coin)) {
         sprites.destroy(value)
@@ -314,6 +321,7 @@ function levels () {
     }
 }
 scene.onOverlapTile(SpriteKind.Player, assets.tile`myTile11`, function (sprite, location) {
+    Tuxy.setPosition(5, 120)
     current_level += 1
     levels()
 })
